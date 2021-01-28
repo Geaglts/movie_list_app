@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { View, StyleSheet, FlatList, StatusBar } from "react-native";
-import Movie from "../components/Movie";
+import MovieCard from "../components/MovieCard";
 import useFetchMovies from "../hooks/useFetchMovies";
 
-export default function Home() {
+export default function HomeScreen({ navigation }) {
     const [page, setPage] = useState(1);
     const [movieList, setMovieList] = useState([]);
 
@@ -32,7 +32,13 @@ export default function Home() {
             <FlatList
                 data={movieList}
                 renderItem={({ item }) => {
-                    return <Movie key={item.id} movie={item} />;
+                    return (
+                        <MovieCard
+                            navigation={navigation}
+                            key={item.id}
+                            movie={item}
+                        />
+                    );
                 }}
                 numColumns={2}
                 onEndReached={() => setPage(page + 1)}
